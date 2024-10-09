@@ -1,41 +1,19 @@
 import 'package:flutter/material.dart';
-import '../models/item.dart'; // Pastikan untuk mengimpor model Item
-
-import 'package:flutter/material.dart';
 import '../models/item.dart';
+import '../widgets/product_details.dart';
 
 class ItemPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // Mengambil argumen yang diterima
-    final Item? item = ModalRoute.of(context)?.settings.arguments as Item?;
-
-    // Jika item null, tampilkan pesan kesalahan
-    if (item == null) {
-      return Scaffold(
-        appBar: AppBar(
-          title: Text('Error'),
-          backgroundColor: Colors.blue, // Latar belakang biru
-        ),
-        body: Center(
-          child: Text('Item tidak ditemukan'),
-        ),
-      );
-    }
+    final Item itemArgs = ModalRoute.of(context)!.settings.arguments as Item;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          item.name ?? 'Tidak ada item',
-          style: TextStyle(color: Colors.white), // Tulisan putih
-        ),
-        backgroundColor: Colors.blue, // Latar belakang biru
+        title: Text(itemArgs.name),
       ),
-      body: Center(
-        child: Text(
-          '${item.name} with ${item.price}', // Menampilkan nama dan harga item
-          style: TextStyle(fontSize: 15),
-        ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ProductDetails(item: itemArgs),
       ),
     );
   }
